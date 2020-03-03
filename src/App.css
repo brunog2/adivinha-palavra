@@ -7,6 +7,31 @@
     border: solid 2px black;
     padding: 15px; 
 }
-.texto{
-    width: 100%;
+
+.container-caracteres{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 30%;
+    padding-right: 30%;
+    
 }
+
+.caractere{
+    width: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    white-space: nowrap;
+
+}
+
+.palavra{
+    text-align: center;
+    font-size: 18px;
+}
+
+.titulo {
+    text-align: center;
+}
+
