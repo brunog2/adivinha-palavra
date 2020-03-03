@@ -10,14 +10,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      palavra: [
+      palavras: [
         "Árvore",
         "Carro",
         "Casa",
         "Natal",
         "Computador"
-      ]
+      ],
+      palavraAleatoria: ""
     }
+  }
+
+  componentDidMount() {
+    this.setState({ palavraAleatoria: this.state.palavras[Math.floor(Math.random() * this.state.palavras.length)] });
   }
 
   render() {
@@ -26,20 +31,21 @@ class App extends React.Component {
         <Typography component="div">
           <Box className="titulo" fontSize={32} m={1}>Adivinhe a palavra</Box>
         </Typography>
-        
-        
+
+
         <div className="container-caracteres">
-          {this.state.palavra.map(caracteres => (
-              <TextField id="standard-basic" className="caractere" />
+
+          {this.state.palavraAleatoria.split('').map(caracteres => (
+            <TextField id="standard-basic" className="caractere" />
           ))}
+
         </div>
 
-
-
-
         <p className="palavra">
-          {this.state.palavra[Math.floor(Math.random() * this.state.palavra.length)]}
-        </p>
+          {this.state.palavraAleatoria}
+        </p>           
+        
+
       </div>
 
     );

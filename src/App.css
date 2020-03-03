@@ -10,20 +10,17 @@
 
 .container-caracteres{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    margin: 50px;
 
-    padding-left: 30%;
-    padding-right: 30%;
     
 }
 
-.caractere{
-    width: 30px;
-    margin-right: auto;
-    margin-left: auto;
-    white-space: nowrap;
-
+.container-caracteres .caractere{
+    width: 50px;
+    padding-left: 50px;
+    
 }
 
 .palavra{
@@ -35,3 +32,11 @@
     text-align: center;
 }
 
+.dive{
+    padding: 50px;
+    margin: 50px; 
+}
+
+.dive .textofield {
+    margin: 5px;
+}
