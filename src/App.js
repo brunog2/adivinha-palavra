@@ -18,7 +18,8 @@ class App extends React.Component {
         "Natal",
         "Computador"
       ],
-      palavraAleatoria: ""
+      palavraAleatoria: "",
+      posicaoLetra: 0
     };
 
     this.revelarLetra = this.revelarLetra.bind(this);
@@ -26,10 +27,18 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({ palavraAleatoria: this.state.palavras[Math.floor(Math.random() * this.state.palavras.length)] });
+
+    var elementos = document.getElementsByClassName("caractere");
+    for (var i = 0; i < elementos.length; i++) {
+      elementos[i].setAttribute("id", "letra" + i);
+     }
   }
 
   revelarLetra() {
-
+    var letra = this.state.palavraAleatoria[this.state.posicaoLetra].toLocaleUpperCase();    
+    console.log(`letra`+this.state.posicaoLetra);
+    document.getElementById(`letra`+this.state.posicaoLetra).value = letra;
+    this.setState({posicaoLetra: this.state.posicaoLetra + 1})
   }
 
   render() {
@@ -43,13 +52,14 @@ class App extends React.Component {
           {this.state.palavraAleatoria.split('').map(caracteres => (
             <TextField
               className="caractere"
-              id="standard-read-only-input"
+              id="letra"
               label=""
               defaultValue=""
               InputProps={{
                 readOnly: true,
               }}
             />
+            
           ))}
         </div>
 
@@ -58,7 +68,7 @@ class App extends React.Component {
         </p>
 
         <div className="containerButton">
-          <Button variant="contained" color="primary" className="revelar">Revelar letra</Button>
+          <Button variant="contained" color="primary" className="revelar" onClick={this.revelarLetra}>Revelar letra</Button>
         </div>
 
 
