@@ -32,6 +32,7 @@
 }
 
 .containerButton{
+    margin: 30px;
     display: flex;
     align-content: center;
     justify-content: center;

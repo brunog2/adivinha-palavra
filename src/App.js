@@ -26,19 +26,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ palavraAleatoria: this.state.palavras[Math.floor(Math.random() * this.state.palavras.length)] });
-
-    var elementos = document.getElementsByClassName("caractere");
-    for (var i = 0; i < elementos.length; i++) {
-      elementos[i].setAttribute("id", "letra" + i);
-     }
+    this.setState({ palavraAleatoria: this.state.palavras[Math.floor(Math.random() * this.state.palavras.length)] });    
   }
 
+
   revelarLetra() {
-    var letra = this.state.palavraAleatoria[this.state.posicaoLetra].toLocaleUpperCase();    
-    console.log(`letra`+this.state.posicaoLetra);
-    document.getElementById(`letra`+this.state.posicaoLetra).value = letra;
-    this.setState({posicaoLetra: this.state.posicaoLetra + 1})
+    var letra = document.getElementById("letra-digitada");    
+    
+    var textos = document.getElementsByClassName("caractere");
+
+    var texto;
+
+    for (texto in textos){
+      console.log(texto)
+    }
+
+    console.log(textos, letra)
+    
   }
 
   render() {
@@ -49,10 +53,11 @@ class App extends React.Component {
         </Typography>
 
         <div className="container-caracteres">
-          {this.state.palavraAleatoria.split('').map(caracteres => (
+          {this.state.palavraAleatoria.split('').map((caractere, index) => (
             <TextField
               className="caractere"
-              id="letra"
+              id={index}
+              key={index}
               label=""
               defaultValue=""
               InputProps={{
@@ -68,7 +73,14 @@ class App extends React.Component {
         </p>
 
         <div className="containerButton">
-          <Button variant="contained" color="primary" className="revelar" onClick={this.revelarLetra}>Revelar letra</Button>
+          <TextField id="letra-digitada" label="Digite a letra"></TextField>
+          
+        </div>
+
+        <div className="containerButton">
+
+        <Button variant="contained" color="primary" className="revelar" onClick={this.revelarLetra}>Revelar letra</Button>
+
         </div>
 
 
