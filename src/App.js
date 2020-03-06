@@ -30,6 +30,11 @@ class App extends React.Component {
   }
 
 
+  /*
+    Percorrer os nomes, começando com id = 0 e ir comparando com o caractere pra ver se contém na palavra.
+    Mostrar a letra em todos os index com id correspondente que o caractere for igual ao selecionado.
+  */
+  
   revelarLetra() {
     var letra = document.getElementById("letra-digitada");    
     
