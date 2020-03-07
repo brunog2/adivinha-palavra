@@ -3,7 +3,7 @@
     max-width: 500px;    
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;    
+    margin-top: 1%;    
     border-radius: 10px;
     padding: 15px;
 }
@@ -16,7 +16,7 @@
 .container-caracteres{
     display: flex;
     justify-content: center;
-    margin: 30px;
+    margin-top: 5%;
 }
 
 .container-caracteres .caractere{
@@ -28,13 +28,15 @@
     text-align: center;
     font-size: 18px;
     color: #202124;
-    margin: 30px;
+    
 }
 
 .container-bt-letras{
+    margin-top: 8%;
     width: 80%;
     border-radius: 3px;
-    padding: 10%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;

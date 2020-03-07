@@ -20,12 +20,14 @@ class App extends React.Component {
       ],
       alfabeto: 'abcdefghijklmnopqrstuvwxyz',
       palavraAleatoria: "",
-      letrasAleatorias: ""
+      letrasAleatorias: "",
+      chute: "",
+      tentativas: 5
     };
     this.revelarLetra = this.revelarLetra.bind(this);
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     var palavraAleatoria = this.state.palavras[Math.floor(Math.random() * this.state.palavras.length)].toUpperCase();
     var palavraAleatoriaEmbaralhada = palavraAleatoria;
     var palavraAleatoriaEmbaralhadaSemRepeticao = ""; 
@@ -38,12 +40,17 @@ class App extends React.Component {
       }
     }
 
-      for (var character in palavraAleatoria){
-        console.log(palavraAleatoria[character], palavraAleatoriaEmbaralhadaSemRepeticao);
-        if (!palavraAleatoriaEmbaralhadaSemRepeticao.includes(palavraAleatoria[character])){
-          palavraAleatoriaEmbaralhadaSemRepeticao += palavraAleatoria[character];
-        }
+    for (var character in palavraAleatoria){
+      console.log(palavraAleatoria[character], palavraAleatoriaEmbaralhadaSemRepeticao);
+      console.log(character.toString());
+      await this.setState({chute: this.state.chute+character.toString()})
+      
+      if (!palavraAleatoriaEmbaralhadaSemRepeticao.includes(palavraAleatoria[character])){
+        palavraAleatoriaEmbaralhadaSemRepeticao += palavraAleatoria[character];
       }
+    }    
+
+    console.log(this.state.chute);
 
     console.log(alfabeto)
     var letrasAleatorias = (palavraAleatoriaEmbaralhadaSemRepeticao.split('').sort(function(){return 0.5-Math.random()}).join('') + alfabeto.substring(0,24-palavraAleatoriaEmbaralhadaSemRepeticao.length).split('').sort(function(){return 0.5-Math.random()}).join('')).split('').sort(function(){return 0.5-Math.random()}).join('');
@@ -55,22 +62,43 @@ class App extends React.Component {
     
   };
 
+  verificarSeGanhou(){
+    if (this.state.palavraAleatoria === this.state.chute){
+      alert("Parabéns! Você ganhou! A palavra era: "+this.state.palavraAleatoria);
+      window.location.reload();
+    }
+  }
+
   /*
     Percorrer os nomes, começando com id = 0 e ir comparando com o caractere pra ver se contém na palavra.
     Mostrar a letra em todos os index com id correspondente que o caractere for igual ao selecionado.
   */
-  revelarLetra(char) {
+  async revelarLetra(char) {
     
     var letra = char.caractere.toUpperCase();
-    console.log(letra)
-    for (var x = 0; x < this.state.palavraAleatoria.length; x++) {
-      var letraDaPalavraSecreta = this.state.palavraAleatoria[x].toUpperCase();
-      console.log(letraDaPalavraSecreta, letra)
-      if (letra === letraDaPalavraSecreta) {
-        document.getElementById(x).value = letra.toUpperCase();
-        
+    
+    console.log("Palavra aleatoria: "+this.state.palavraAleatoria);
+    console.log("Chute: "+this.state.chute)
+    if (this.state.tentativas === 0){
+      alert("Você perdeu. A palavra era: "+this.state.palavraAleatoria);
+      window.location.reload();
+    }
+    
+    else if(this.state.palavraAleatoria.includes(letra)){
+      for (var x = 0; x < this.state.palavraAleatoria.length; x++) {
+        var letraDaPalavraSecreta = this.state.palavraAleatoria[x].toUpperCase();
+        console.log(letraDaPalavraSecreta, letra)
+        if (letra === letraDaPalavraSecreta) {
+          document.getElementById(x).value = letra.toUpperCase();        
+          await this.setState({chute: this.state.chute.replace(x.toString(), letra.toUpperCase())});
+          console.log("Chute "+this.state.chute);
+          this.verificarSeGanhou();
+        };
       };
-    };
+    } else{
+      alert(`Letra incorreta, te restam ${this.state.tentativas} tentativas`);
+      this.setState({tentativas: this.state.tentativas - 1})
+    }
   };
 
   render() {
@@ -96,10 +124,6 @@ class App extends React.Component {
           ))}
         </div>
 
-        <p className="palavra">
-          {this.state.palavraAleatoria}
-        </p>
-
         <div className="container-bt-letras">
         {this.state.letrasAleatorias.split('').map((caractere, index) => (
             <Button 
@@ -113,14 +137,6 @@ class App extends React.Component {
              onClick={() => this.revelarLetra({caractere})}
              >{caractere}</Button>
           ))}
-        </div>
-
-        <div className="container-bt-txt">
-          <TextField inputProps={{ min: 0, style: { textAlign: 'center' } }} id="letra-digitada" label="Digite a letra"></TextField>
-        </div>
-
-        <div className="container-bt-txt">
-          <Button variant="contained" color="primary" className="revelar" onClick={this.revelarLetra}>Revelar letra</Button>
         </div>
       </div>
     );
