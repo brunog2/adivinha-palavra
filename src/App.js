@@ -16,7 +16,34 @@ class App extends React.Component {
         "Carro",
         "Casa",
         "Natal",
-        "Computador"
+        "Computador",
+        "Dobrado",
+        "Criceto",
+        "Geleira",
+        "Fogo",
+        "Pedestal",
+        "Arrasto",
+        "Dentro",
+        "Golfinho ",
+        "Forno",
+        "Mil",
+        "Pronunciar",
+        "Magia",
+        "Adorno",
+        "Kremlin",
+        "Capital",
+        "Catalunha",
+        "Endereços",
+        "Entrar",
+        "Hoje",
+        "Carga",
+        "Megafone",
+        "Meias",
+        "Banho",
+        "Headband",
+        "Vendedor",
+        "Menina",
+        "Mendigo"
       ],
       alfabeto: 'abcdefghijklmnopqrstuvwxyz',
       palavraAleatoria: "",
@@ -96,8 +123,9 @@ class App extends React.Component {
         };
       };
     } else{
+      await this.setState({tentativas: this.state.tentativas - 1});
       alert(`Letra incorreta, te restam ${this.state.tentativas} tentativas`);
-      this.setState({tentativas: this.state.tentativas - 1})
+      
     }
   };
 
